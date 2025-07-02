@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>MCP Server Detail</title>
+    <title>Detalhes do Servidor MCP</title>
 
     <script type="module">
         import { store } from "/components/settings/mcp/client/mcp-servers-store.js";
@@ -23,7 +23,7 @@
 
                             <template x-if="tool.input_schema?.properties">
                                 <div class="tool-properties">
-                                    <p class="properties-title">Properties:</p>
+                                    <p class="properties-title">Propriedades:</p>
                                     <ul>
                                         <template x-for="(prop, propName) in tool.input_schema.properties"
                                             :key="propName">

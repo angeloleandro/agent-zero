@@ -1,7 +1,7 @@
 import base64
-from werkzeug.datastructures import FileStorage
+from werkzeug.datastructures import FileStorage # type: ignore
 from python.helpers.api import ApiHandler
-from flask import Request, Response, send_file
+from flask import Request, Response, send_file # type: ignore
 
 from python.helpers.file_browser import FileBrowser
 from python.helpers import files, runtime
@@ -12,7 +12,7 @@ import os
 class UploadWorkDirFiles(ApiHandler):
     async def process(self, input: dict, request: Request) -> dict | Response:
         if "files[]" not in request.files:
-            raise Exception("No files uploaded")
+            raise Exception("Nenhum arquivo enviado")
 
         current_path = request.form.get("path", "")
         uploaded_files = request.files.getlist("files[]")
@@ -23,16 +23,16 @@ class UploadWorkDirFiles(ApiHandler):
         successful, failed = await upload_files(uploaded_files, current_path)
 
         if not successful and failed:
-            raise Exception("All uploads failed")
+            raise Exception("Todos os uploads falharam")
 
         # result = browser.get_files(current_path)
         result = await runtime.call_development_function(get_work_dir_files.get_files, current_path)
 
         return {
             "message": (
-                "Files uploaded successfully"
+                "Arquivos enviados com sucesso"
                 if not failed
-                else "Some files failed to upload"
+                else "Alguns arquivos falharam ao enviar"
             ),
             "data": result,
             "successful": successful,

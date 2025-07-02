@@ -5,7 +5,7 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 function createCopyButton() {
   const button = document.createElement("button");
   button.className = "copy-button";
-  button.textContent = "Copy";
+  button.textContent = "Copiar";
 
   button.addEventListener("click", async function (e) {
     e.stopPropagation();
@@ -24,13 +24,13 @@ function createCopyButton() {
       await navigator.clipboard.writeText(textToCopy);
       const originalText = button.textContent;
       button.classList.add("copied");
-      button.textContent = "Copied!";
+      button.textContent = "Copiado!";
       setTimeout(() => {
         button.classList.remove("copied");
         button.textContent = originalText;
       }, 2000);
     } catch (err) {
-      console.error("Failed to copy text:", err);
+      console.error("Falha ao copiar texto:", err);
     }
   });
 
@@ -644,7 +644,7 @@ async function copyText(text, element) {
       element.classList.remove("copied");
     }, 2000);
   } catch (err) {
-    console.error("Failed to copy text:", err);
+    console.error("Falha ao copiar texto:", err);
   }
 }
 

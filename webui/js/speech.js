@@ -46,8 +46,8 @@ async function loadMicSettings() {
       });
     }
   } catch (error) {
-    window.toastFetchError("Failed to load speech settings", error);
-    console.error("Failed to load speech settings:", error);
+    window.toastFetchError("Falha ao carregar configurações de fala", error);
+    console.error("Falha ao carregar configurações de fala:", error);
   }
 }
 
@@ -141,7 +141,7 @@ class MicrophoneInput {
     if (!this.hasStartedRecording && this.mediaRecorder.state !== "recording") {
       this.hasStartedRecording = true;
       this.mediaRecorder.start(1000);
-      console.log("Speech started");
+      console.log("Fala iniciada");
     }
     if (this.waitingTimer) {
       clearTimeout(this.waitingTimer);
@@ -294,8 +294,8 @@ class MicrophoneInput {
         await this.updateCallback(result.text, true);
       }
     } catch (error) {
-      window.toastFetchError("Transcription error", error);
-      console.error("Transcription error:", error);
+      window.toastFetchError("Erro de transcrição", error);
+      console.error("Erro de transcrição:", error);
     } finally {
       this.audioChunks = [];
       this.status = Status.LISTENING;
@@ -331,7 +331,7 @@ class MicrophoneInput {
       ok = true;
     }
     if (ok) return text;
-    else console.log(`Discarding transcription: ${text}`);
+    else console.log(`Descartando transcrição: ${text}`);
   }
 }
 
@@ -384,9 +384,9 @@ async function requestMicrophonePermission() {
     await navigator.mediaDevices.getUserMedia({ audio: true });
     return true;
   } catch (err) {
-    console.error("Error accessing microphone:", err);
+    console.error("Erro ao acessar microfone:", err);
     toast(
-      "Microphone access denied. Please enable microphone access in your browser settings.",
+      "Acesso ao microfone negado. Por favor, habilite o acesso ao microfone nas configurações do seu navegador.",
       "error"
     );
     return false;
@@ -410,7 +410,7 @@ class Speech {
   }
 
   speak(text) {
-    console.log("Speaking:", text);
+    console.log("Falando:", text);
     // Stop any current utterance
     this.stop();
 

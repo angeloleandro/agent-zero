@@ -3,11 +3,11 @@ const fileBrowserModalProxy = {
   isLoading: false,
 
   browser: {
-    title: "File Browser",
+    title: "Navegador de Arquivos",
     currentPath: "",
     entries: [],
     parentPath: "",
-    sortBy: "name",
+    sortBy: "nome",
     sortDirection: "asc",
   },
 
@@ -49,11 +49,11 @@ const fileBrowserModalProxy = {
         this.browser.currentPath = data.data.current_path;
         this.browser.parentPath = data.data.parent_path;
       } else {
-        console.error("Error fetching files:", await response.text());
+        console.error("Erro ao buscar arquivos:", await response.text());
         this.browser.entries = [];
       }
     } catch (error) {
-      window.toastFetchError("Error fetching files", error);
+      window.toastFetchError("Erro ao buscar arquivos", error);
       this.browser.entries = [];
     } finally {
       this.isLoading = false;
@@ -78,18 +78,18 @@ const fileBrowserModalProxy = {
 
   sortFiles(entries) {
     return [...entries].sort((a, b) => {
-      // Folders always come first
+      // Pastas sempre vêm primeiro
       if (a.is_dir !== b.is_dir) {
         return a.is_dir ? -1 : 1;
       }
 
       const direction = this.browser.sortDirection === "asc" ? 1 : -1;
       switch (this.browser.sortBy) {
-        case "name":
+        case "nome":
           return direction * a.name.localeCompare(b.name);
-        case "size":
+        case "tamanho":
           return direction * (a.size - b.size);
-        case "date":
+        case "data":
           return direction * (new Date(a.modified) - new Date(b.modified));
         default:
           return 0;
@@ -108,7 +108,7 @@ const fileBrowserModalProxy = {
   },
 
   async deleteFile(file) {
-    if (!confirm(`Are you sure you want to delete ${file.name}?`)) {
+    if (!confirm(`Tem certeza de que deseja excluir ${file.name}?`)) {
       return;
     }
 
@@ -129,13 +129,13 @@ const fileBrowserModalProxy = {
         this.browser.entries = this.browser.entries.filter(
           (entry) => entry.path !== file.path
         );
-        alert("File deleted successfully.");
+        alert("Arquivo excluído com sucesso.");
       } else {
-        alert(`Error deleting file: ${await response.text()}`);
+        alert(`Erro ao excluir arquivo: ${await response.text()}`);
       }
     } catch (error) {
-      window.toastFetchError("Error deleting file", error);
-      alert("Error deleting file");
+      window.toastFetchError("Erro ao excluir arquivo", error);
+      alert("Erro ao excluir arquivo");
     }
   },
 
@@ -153,7 +153,7 @@ const fileBrowserModalProxy = {
           if (files[i].size > 100 * 1024 * 1024) {
             // 100MB
             alert(
-              `File ${files[i].name} exceeds the maximum allowed size of 100MB.`
+              `O arquivo ${files[i].name} excede o tamanho máximo permitido de 100MB.`
             );
             continue;
           }
@@ -177,19 +177,19 @@ const fileBrowserModalProxy = {
         this.browser.currentPath = data.data.current_path;
         this.browser.parentPath = data.data.parent_path;
 
-        // Show success message
+        // Exibir mensagem de sucesso
         if (data.failed && data.failed.length > 0) {
           const failedFiles = data.failed
             .map((file) => `${file.name}: ${file.error}`)
             .join("\n");
-          alert(`Some files failed to upload:\n${failedFiles}`);
+          alert(`Alguns arquivos falharam ao carregar:\n${failedFiles}`);
         }
       } else {
         alert(data.message);
       }
     } catch (error) {
-      window.toastFetchError("Error uploading files", error);
-      alert("Error uploading files");
+      window.toastFetchError("Erro ao carregar arquivos", error);
+      alert("Erro ao carregar arquivos");
     }
   },
 
@@ -215,8 +215,8 @@ const fileBrowserModalProxy = {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(link.href);
     } catch (error) {
-      window.toastFetchError("Error downloading file", error);
-      alert("Error downloading file");
+      window.toastFetchError("Erro ao baixar arquivo", error);
+      alert("Erro ao baixar arquivo");
     }
   },
 
@@ -267,7 +267,7 @@ openFileLink = async function (path) {
   try {
     const resp = await window.sendJsonData("/file_info", { path });
     if (!resp.exists) {
-      window.toast("File does not exist.", "error");
+      window.toast("O arquivo não existe.", "error");
       return;
     }
 
@@ -280,7 +280,7 @@ openFileLink = async function (path) {
       });
     }
   } catch (e) {
-    window.toastFetchError("Error opening file", e);
+    window.toastFetchError("Erro ao abrir arquivo", e);
   }
 };
 window.openFileLink = openFileLink;

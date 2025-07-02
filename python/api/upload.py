@@ -1,14 +1,14 @@
 from python.helpers.api import ApiHandler
-from flask import Request, Response
+from flask import Request, Response # type: ignore
 
 from python.helpers import files
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename # type: ignore
 
 
 class UploadFile(ApiHandler):
     async def process(self, input: dict, request: Request) -> dict | Response:
         if "file" not in request.files:
-            raise Exception("No file part")
+            raise Exception("Nenhuma parte do arquivo")
 
         file_list = request.files.getlist("file")  # Handle multiple files
         saved_filenames = []

@@ -1,4 +1,3 @@
-
 const settingsModalProxy = {
     isOpen: false,
     settings: {},
@@ -102,16 +101,16 @@ const settingsModalProxy = {
 
             // First load the settings data without setting the active tab
             const settings = {
-                "title": "Settings",
+                "title": "Configurações",
                 "buttons": [
                     {
                         "id": "save",
-                        "title": "Save",
+                        "title": "Salvar",
                         "classes": "btn btn-ok"
                     },
                     {
                         "id": "cancel",
-                        "title": "Cancel",
+                        "title": "Cancelar",
                         "type": "secondary",
                         "classes": "btn btn-cancel"
                     }
@@ -207,7 +206,7 @@ const settingsModalProxy = {
             });
 
         } catch (e) {
-            window.toastFetchError("Error getting settings", e)
+            window.toastFetchError("Erro ao obter configurações", e)
         }
     },
 
@@ -219,7 +218,7 @@ const settingsModalProxy = {
             try {
                 resp = await window.sendJsonData("/settings_set", modalAD.settings);
             } catch (e) {
-                window.toastFetchError("Error saving settings", e)
+                window.toastFetchError("Erro ao salvar configurações", e)
                 return
             }
             document.dispatchEvent(new CustomEvent('settings-updated', { detail: resp.settings }));

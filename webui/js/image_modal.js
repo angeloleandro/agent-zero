@@ -81,7 +81,7 @@ export async function openImageModal(src, refreshInterval = 0) {
     // Open the modal with the generated HTML
     await window.genericModalProxy.openModal(fileName, "", html);
   } catch (e) {
-    window.toastFetchError("Error fetching history", e);
+    window.toastFetchError("Erro ao buscar histórico", e);
     return;
   }
 }

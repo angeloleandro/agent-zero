@@ -6,9 +6,9 @@ export async function openHistoryModal() {
         // const data = JSON.stringify(hist.history, null, 4);
         const data = hist.history
         const size = hist.tokens
-        await showEditorModal(data, "markdown", `History ~${size} tokens`, "Conversation history visible to the LLM. History is compressed to fit into the context window over time.");
+        await showEditorModal(data, "markdown", `Histórico ~${size} tokens`, "Histórico da conversa visível para o LLM. O histórico é comprimido para caber na janela de contexto ao longo do tempo.");
     } catch (e) {
-        window.toastFetchError("Error fetching history", e)
+        window.toastFetchError("Erro ao buscar histórico", e)
         return
     }
 }
@@ -18,9 +18,9 @@ export async function openCtxWindowModal() {
         const win = await window.sendJsonData("/ctx_window_get", { context: getContext() });
         const data = win.content
         const size = win.tokens
-        await showEditorModal(data, "markdown", `Context window ~${size} tokens`, "Data passed to the LLM during last interaction. Contains system message, conversation history and RAG.");
+        await showEditorModal(data, "markdown", `Janela de contexto ~${size} tokens`, "Dados passados para o LLM durante a última interação. Contém mensagem do sistema, histórico da conversa e RAG.");
     } catch (e) {
-        window.toastFetchError("Error fetching context", e)
+        window.toastFetchError("Erro ao buscar contexto", e)
         return
     }
 }

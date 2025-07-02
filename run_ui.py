@@ -8,8 +8,8 @@ from functools import wraps
 import threading
 import signal
 from typing import override
-from flask import Flask, request, Response, session
-from flask_basicauth import BasicAuth
+from flask import Flask, request, Response, session # type: ignore
+from flask_basicauth import BasicAuth # type: ignore
 import initialize
 from python.helpers import errors, files, git, mcp_server
 from python.helpers.files import get_abs_path
@@ -22,7 +22,7 @@ from python.helpers.print_style import PrintStyle
 # Set the new timezone to 'UTC'
 os.environ["TZ"] = "UTC"
 # Apply the timezone change
-time.tzset()
+time.tzset() # type: ignore
 
 # initialize the internal Flask server
 webapp = Flask("app", static_folder=get_abs_path("./webui"), static_url_path="/")
@@ -116,8 +116,8 @@ def requires_auth(f):
             auth = request.authorization
             if not auth or not (auth.username == user and auth.password == password):
                 return Response(
-                    "Could not verify your access level for that URL.\n"
-                    "You have to login with proper credentials",
+                    "Não foi possível verificar seu nível de acesso para essa URL.\n"
+                    "Você deve fazer login com as credenciais adequadas",
                     401,
                     {"WWW-Authenticate": 'Basic realm="Login Required"'},
                 )
@@ -161,10 +161,10 @@ def run():
     PrintStyle().print("Initializing framework...")
 
     # Suppress only request logs but keep the startup messages
-    from werkzeug.serving import WSGIRequestHandler
-    from werkzeug.serving import make_server
-    from werkzeug.middleware.dispatcher import DispatcherMiddleware
-    from a2wsgi import ASGIMiddleware, WSGIMiddleware
+    from werkzeug.serving import WSGIRequestHandler # type: ignore
+    from werkzeug.serving import make_server # type: ignore
+    from werkzeug.middleware.dispatcher import DispatcherMiddleware # type: ignore
+    from a2wsgi import ASGIMiddleware, WSGIMiddleware # type: ignore
 
     PrintStyle().print("Starting server...")
 

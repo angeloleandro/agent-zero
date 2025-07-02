@@ -1,23 +1,22 @@
 <html>
 
 <head>
-    <title>Configuring MCP Servers</title>
+    <title>Configurando Servidores MCP</title>
 
 </head>
 
 <body>
     <div x-data>
-        <p>Agent Zero uses standard JSON configuration known from other AI applications.<br>
-            The configuration is a JSON object containing "mcpServers" object where each key is an individual MCP
-            server.<br>
-            Local servers are defined by a "command", "args", "env" variables.<br>
-            Remote servers are defined by a "url", "headers".<br>
-            "disabled" can be set to true to disable a server without removing config.<br>
-            Custom "description" can be set to provide additional information about the server to A0.<br>
-            All servers can also define "init_timeout" and "tool_timeout" which override global settings.</p>
+        <p>O Agent Zero utiliza configuração JSON padrão, conhecida de outras aplicações de IA.<br>
+            A configuração é um objeto JSON contendo o objeto "mcpServers", onde cada chave é um servidor MCP individual.<br>
+            Servidores locais são definidos por "command", "args", "env".<br>
+            Servidores remotos são definidos por "url", "headers".<br>
+            "disabled" pode ser definido como true para desabilitar um servidor sem remover a configuração.<br>
+            Uma "description" personalizada pode ser definida para fornecer informações adicionais sobre o servidor ao A0.<br>
+            Todos os servidores também podem definir "init_timeout" e "tool_timeout", que sobrescrevem as configurações globais.</p>
 
 
-        <h3>Example MCP Servers Configuration JSON</h3>
+        <h3>Exemplo de Configuração JSON dos Servidores MCP</h3>
         <div id="mcp-servers-example"></div>
 
         <script>
